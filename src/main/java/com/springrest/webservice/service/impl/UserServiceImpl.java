@@ -7,6 +7,7 @@ import com.springrest.webservice.shared.Utils;
 import com.springrest.webservice.shared.dto.UserDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,11 +15,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final Utils utils;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, Utils utils) {
+    public UserServiceImpl(UserRepository userRepository, Utils utils, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.utils = utils;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -35,9 +38,10 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(user, userEntity);
 
         String publicUserId = utils.generateUserId(30);
-        userEntity.setUserId(publicUserId);
-        userEntity.setEncryptedPassword("test");
 
+        userEntity.setUserId(publicUserId);
+
+        userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
         UserEntity savedUserDetails = userRepository.save(userEntity);
 
