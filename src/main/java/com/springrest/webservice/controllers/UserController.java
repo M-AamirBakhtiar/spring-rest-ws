@@ -2,13 +2,23 @@ package com.springrest.webservice.controllers;
 
 import com.springrest.webservice.model.request.UserDetailsRequestModel;
 import com.springrest.webservice.model.response.UserRestResponse;
+import com.springrest.webservice.service.UserService;
 import com.springrest.webservice.shared.dto.UserDTO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
 
     @GetMapping
     public String getUsers() {
