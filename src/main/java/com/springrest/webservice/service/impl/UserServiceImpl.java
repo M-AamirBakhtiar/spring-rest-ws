@@ -3,6 +3,7 @@ package com.springrest.webservice.service.impl;
 import com.springrest.webservice.entity.UserEntity;
 import com.springrest.webservice.repository.UserRepository;
 import com.springrest.webservice.service.UserService;
+import com.springrest.webservice.shared.Utils;
 import com.springrest.webservice.shared.dto.UserDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final Utils utils;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, Utils utils) {
         this.userRepository = userRepository;
+        this.utils = utils;
     }
 
     @Override
@@ -31,8 +34,10 @@ public class UserServiceImpl implements UserService {
 
         BeanUtils.copyProperties(user, userEntity);
 
+        String publicUserId = utils.generateUserId(30);
+        userEntity.setUserId(publicUserId);
         userEntity.setEncryptedPassword("test");
-        userEntity.setUserId("testUserId");
+
 
         UserEntity savedUserDetails = userRepository.save(userEntity);
 

@@ -10,7 +10,7 @@ Accept: application/json
 {
   "firstName": "John",
   "lastName": "Doe",
-  "email": "john@gmail.com",
+  "email": "johndoe@gmail.com",
   "password": "test"
 }
 
