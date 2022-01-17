@@ -1,6 +1,6 @@
 package com.springrest.webservice.controllers;
 
-import com.springrest.webservice.model.request.UserDetailsRequestModel;
+import com.springrest.webservice.model.request.UserSignupRequestModel;
 import com.springrest.webservice.model.response.UserRestResponse;
 import com.springrest.webservice.service.UserService;
 import com.springrest.webservice.shared.dto.UserDTO;
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserRestResponse createUser(@RequestBody UserDetailsRequestModel userDetails) {
+    public UserRestResponse createUser(@RequestBody UserSignupRequestModel userDetails) {
 
         UserRestResponse userRestResponse = new UserRestResponse();
 

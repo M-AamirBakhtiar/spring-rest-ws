@@ -1,6 +1,6 @@
 package com.springrest.webservice.model.request;
 
-public class UserDetailsRequestModel {
+public class UserSignupRequestModel {
 
     private String firstName;
     private String lastName;
